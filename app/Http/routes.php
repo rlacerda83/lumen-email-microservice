@@ -13,14 +13,14 @@
 
 $api = app('Dingo\Api\Routing\Router');
 
-$api->version('v1', ['middleware' => 'api.auth'], function ($api) {
-    $api->post('emails/send', 'App\Http\Controllers\EmailController@send');
+$api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Controllers\V1'], function ($api) {
+    $api->post('emails/send', 'EmailController@send');
 
-    $api->get('emails', 'App\Http\Controllers\V1\EmailController@index');
+    $api->get('emails', 'EmailController@index');
 
-    $api->get('emails/{id}', 'App\Http\Controllers\EmailController@get');
+    $api->get('emails/{id}', 'EmailController@get');
 
-    $api->delete('emails/{id}', 'App\Http\Controllers\EmailController@delete');
+    $api->delete('emails/{id}', 'EmailController@delete');
 });
 
 $api->version('v2',  function ($api) {
