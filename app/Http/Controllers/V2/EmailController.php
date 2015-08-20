@@ -26,7 +26,9 @@ class EmailController extends BaseController
 
         $paginator =  $queryBuilder->paginate(10);
         $paginator->appends(app('request')->except('page'));
-        return $this->response->paginator($paginator, new EmailTransformer);
+
+        return response()->json($paginator);
+        //return $this->response->paginator($paginator, new EmailTransformer);
     }
 
     /**

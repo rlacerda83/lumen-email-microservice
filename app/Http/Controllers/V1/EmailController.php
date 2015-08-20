@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\V1;
 
 use Mail;
+use Cache;
 use App\Models\Email;
 use App\Transformers\EmailTransformer;
 use Illuminate\Http\Request;
@@ -19,8 +20,10 @@ class EmailController extends BaseController
      */
     public function index()
     {
-        $emails =  Email::paginate(5);
-        return $this->response->paginator($emails, new EmailTransformer);
+        $paginator = Cache::remember('users', 10, function() {
+            return Email::paginate(10);
+        });
+        return $this->response->paginator($paginator, new EmailTransformer);
     }
 
     /**

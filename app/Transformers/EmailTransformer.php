@@ -8,12 +8,16 @@ class EmailTransformer extends TransformerAbstract
 {
 
     /**
-     * @param \App\Models\Email $email
+     * @param $email
      * @return array
      */
-    public function transform(\App\Models\Email $email)
+    public function transform($email)
     {
-       return $email->toArray();
+        if($email instanceof \stdClass ) {
+            return json_decode(json_encode($email), true);
+        }
+
+        return $email->toArray();
     }
 
 }

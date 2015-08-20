@@ -70,7 +70,7 @@ class QueryStringAPiParser {
     private function addFilter($field, $value)
     {
         if(array_search($field, $this->columnNames) === false) {
-            throw new \Exception("Invalid query! Field {$field} not mapped");
+            throw new \Exception("Invalid query! Field {$field} not found");
         }
 
         $values = explode(self::FILTER_DELIMITER, $value);
@@ -101,7 +101,7 @@ class QueryStringAPiParser {
             }
 
             if(array_search($field, $this->columnNames) === false) {
-                throw new \Exception("Invalid query! Field {$field} not mapped");
+                throw new \Exception("Invalid query! Field {$field} not found");
             }
 
             $this->queryBuilder->orderBy($field, $direction);
