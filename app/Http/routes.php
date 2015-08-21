@@ -16,7 +16,7 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Controllers\V1'], function ($api) {
     $api->post('emails/send', 'EmailController@send');
 
-    $api->get('emails', 'EmailController@index');
+    $api->get('emails/', 'EmailController@index');
 
     $api->get('emails/{id}', 'EmailController@get');
 

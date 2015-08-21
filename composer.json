@@ -9,7 +9,8 @@
         "vlucas/phpdotenv": "~1.0",
         "illuminate/mail" : "5.*",
         "jeremeamia/superclosure": "~2.0",
-        "dingo/api": "0.10.*"
+        "dingo/api": "@dev",
+        "rlacerda83/query-parser": "@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",

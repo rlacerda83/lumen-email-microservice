@@ -12,9 +12,7 @@ class StaticAuthentication extends Authorization
 {
     public function authenticate(Request $request, Route $route)
     {
-        $this->validateAuthorizationHeader($request);
-
-        $authHeader = $request->headers->get('authorization');
+        $authHeader = $request->headers->get('api-token');
         $key = substr($authHeader, strpos($authHeader, ':') +1);
 
         if ($key != env('APP_KEY', rand(0, 1000))) {

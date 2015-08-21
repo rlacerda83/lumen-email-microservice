@@ -1,11 +1,12 @@
 <?php namespace App\Http\Controllers\V2;
 
 use App\Services\QueryStringApiParser;
+use Illuminate\Support\Facades\DB;
 use Mail;
+use Dingo\Api\Routing\Helpers;
 use App\Models\Email;
 use App\Transformers\EmailTransformer;
 use Illuminate\Http\Request;
-use Dingo\Api\Routing\Helpers;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Dingo\Api\Exception\DeleteResourceFailedException;
 use Laravel\Lumen\Routing\Controller as BaseController;
@@ -20,15 +21,15 @@ class EmailController extends BaseController
      */
     public function index(Request $request)
     {
+
         $emails = new Email();
-        $queryParser = new QueryStringApiParser($request, $emails);
+        $queryParser = new \QueryParser($request, $emails);
         $queryBuilder = $queryParser->parser();
 
         $paginator =  $queryBuilder->paginate(10);
         $paginator->appends(app('request')->except('page'));
 
-        return response()->json($paginator);
-        //return $this->response->paginator($paginator, new EmailTransformer);
+        return $this->response->paginator($paginator, new EmailTransformer);
     }
 
     /**
