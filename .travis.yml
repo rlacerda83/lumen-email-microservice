@@ -10,7 +10,6 @@ before_script:
   - mysql -e 'create database emailservice;'
   - composer self-update
   - composer install --dev --prefer-source --no-interaction
-  - chmod -R 777 app/storage
   - php artisan migrate:install --env=testing --no-interaction -vvv
 
 script:
