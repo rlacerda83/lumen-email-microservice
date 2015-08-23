@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Email;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -12,7 +13,12 @@ class CreateEmailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('emails', function (Blueprint $table) {
+
+        if (Schema::hasTable(Email::getTableName())) {
+            Schema::drop(Email::getTableName());
+        }
+
+        Schema::create(Email::getTableName(), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('to');
             $table->string('from')->nullable();
@@ -34,6 +40,8 @@ class CreateEmailsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('emails');
+        if (Schema::hasTable(Email::getTableName())) {
+            Schema::drop(Email::getTableName());
+        }
     }
 }

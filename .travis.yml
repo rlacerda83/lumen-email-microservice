@@ -1,0 +1,17 @@
+language: php
+php:
+  - 5.5
+  - 5.6
+
+sudo: false
+
+# Commands to be run before your environment runs.
+before_script:
+  - composer self-update
+  - composer install --prefer-source --no-interaction
+
+script: ./vendor/bin/phpunit
+
+notifications:
+    on_success: never
+    on_failure: always

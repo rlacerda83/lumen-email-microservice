@@ -5,6 +5,9 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateJobsTable extends Migration
 {
+
+    protected $tableName = 'jobs';
+
     /**
      * Run the migrations.
      *
@@ -12,7 +15,11 @@ class CreateJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        if (Schema::hasTable($this->tableName)) {
+            Schema::drop($this->tableName);
+        }
+
+        Schema::create($this->tableName, function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('queue');
             $table->longText('payload');
@@ -32,6 +39,8 @@ class CreateJobsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('jobs');
+        if (Schema::hasTable($this->tableName)) {
+            Schema::drop($this->tableName);
+        }
     }
 }

@@ -1,9 +1,16 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
-    "license": "MIT",
+    "name": "rlacerda83/service-email",
+    "description": "Microservice for sending e-mail",
+    "keywords": ["email", "microservice", "lumen", "laravel"],
+    "homepage": "http://github.com/rlacerda83/lumen-email-service",
     "type": "project",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Rodrigo Lacerda",
+            "email": "r.lacerda83@gmail.com"
+        }
+    ],
     "require": {
         "laravel/lumen-framework": "5.1.*",
         "vlucas/phpdotenv": "~1.0",

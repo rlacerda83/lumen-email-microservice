@@ -24,6 +24,6 @@ class StaticAuthentication extends Authorization
 
     public function getAuthorizationMethod()
     {
-        return 'key';
+        return 'api-token';
     }
 }

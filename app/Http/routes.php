@@ -23,6 +23,6 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
     $api->delete('emails/{id}', 'EmailController@delete');
 });
 
-$api->version('v2',  function ($api) {
-    $api->get('emails/', 'App\Http\Controllers\V2\EmailController@index');
-});
+//$api->version('v2',  function ($api) {
+//    $api->get('emails/', 'App\Http\Controllers\V2\EmailController@index');
+//});

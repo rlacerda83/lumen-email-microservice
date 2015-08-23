@@ -1,7 +1,6 @@
 <?php namespace App\Http\Controllers\V1;
 
 use Mail;
-use Cache;
 use App\Models\Email;
 use App\Transformers\EmailTransformer;
 use Illuminate\Http\Request;
@@ -9,6 +8,7 @@ use Dingo\Api\Routing\Helpers;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Dingo\Api\Exception\DeleteResourceFailedException;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use QueryParser\ParserRequest;
 
 class EmailController extends BaseController
 {
@@ -18,11 +18,16 @@ class EmailController extends BaseController
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $paginator = Cache::remember('users', 10, function() {
-            return Email::paginate(10);
-        });
+
+        $emails = new Email();
+        $queryParser = new ParserRequest($request, $emails);
+        $queryBuilder = $queryParser->parser();
+
+        $paginator =  $queryBuilder->paginate(10);
+        $paginator->appends(app('request')->except('page'));
+
         return $this->response->paginator($paginator, new EmailTransformer);
     }
 
@@ -30,7 +35,8 @@ class EmailController extends BaseController
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function get($id){
+    public function get($id)
+    {
 
         $email = Email::find($id);
         if(!$email) {
@@ -45,7 +51,8 @@ class EmailController extends BaseController
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function delete($id){
+    public function delete($id)
+    {
 
         $email = Email::find($id);
         if(!$email) {
