@@ -5,12 +5,17 @@ php:
 
 sudo: false
 
-# Commands to be run before your environment runs.
 before_script:
+  - cp .env.example .env
+  - mysql -e 'create database emailservice;'
   - composer self-update
-  - composer install --prefer-source --no-interaction
+  - composer install --dev --prefer-source --no-interaction
+  - chmod -R 777 app/storage
+  - php artisan migrate:install --env=testing --no-interaction -vvv
 
-script: ./vendor/bin/phpunit
+script:
+  - php artisan migrate --env=testing --no-interaction -vvv
+  - vendor/bin/phpunit
 
 notifications:
     on_success: never
