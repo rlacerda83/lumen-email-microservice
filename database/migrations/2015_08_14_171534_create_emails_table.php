@@ -6,6 +6,9 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateEmailsTable extends Migration
 {
+
+    protected $tableName = 'emails';
+
     /**
      * Run the migrations.
      *
@@ -14,11 +17,11 @@ class CreateEmailsTable extends Migration
     public function up()
     {
 
-        if (Schema::hasTable(Email::getTableName())) {
-            Schema::drop(Email::getTableName());
+        if (Schema::hasTable($this->tableName)) {
+            Schema::drop($this->tableName);
         }
 
-        Schema::create(Email::getTableName(), function (Blueprint $table) {
+        Schema::create($this->tableName, function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('to');
             $table->string('from')->nullable();
@@ -40,8 +43,8 @@ class CreateEmailsTable extends Migration
      */
     public function down()
     {
-        if (Schema::hasTable(Email::getTableName())) {
-            Schema::drop(Email::getTableName());
+        if (Schema::hasTable($this->tableName)) {
+            Schema::drop($this->tableName);
         }
     }
 }
