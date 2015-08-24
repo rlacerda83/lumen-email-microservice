@@ -50,6 +50,5 @@ class SendEmail
         }
 
         return true;
-
     }
 }

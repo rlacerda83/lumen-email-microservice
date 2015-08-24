@@ -105,14 +105,15 @@ class ControllerTest extends TestCase
             $totalBefore = Email::count();
         }
 
-        Mail::pretend(true);
+        Mail::shouldReceive('send')->andReturn(true);
+        Mail::shouldReceive('queue')->andReturn(true);
 
         $this->call('POST', '/api/emails/send', $queryParams, [], [], $this->serverParams);
         $this->assertResponseStatus($expectedResult);
 
         if ($queryParams['save'] == true && $expectedResult == 201) {
             $totalAfter = Email::count();
-            $this->assertEquals($totalBefore, $totalAfter-1);
+            $this->assertEquals($totalBefore, $totalAfter - 1);
         }
     }
 
@@ -123,18 +124,21 @@ class ControllerTest extends TestCase
                 'to' => 'r.lacerda83@gmail.com',
                 'subject' => 'Test',
                 'html' => '<html><b>OK</b></html>',
-                'save' => false
+                'save' => false,
+                'send_type' => 'NOW',
             ], 201],
             [[
                 'to' => 'r.lacerda83@gmail.com',
                 'subject' => 'Test',
                 'html' => '<html><b>OK</b></html>',
-                'save' => true
+                'save' => true,
+                'send_type' => 'QUEUE',
             ], 201],
             [[
                 'to' => 'r.lacerda83@gmail.com',
                 'subject' => 'Test',
-                'save' => false
+                'save' => false,
+                'send_type' => 'QUEUE',
             ], 422],
         ];
     }
@@ -150,6 +154,4 @@ class ControllerTest extends TestCase
 
         return Email::create($data);
     }
-
-
 }
