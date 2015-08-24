@@ -2,7 +2,7 @@
     "name": "rlacerda83/service-email",
     "description": "Microservice for sending e-mail",
     "keywords": ["email", "microservice", "lumen", "laravel"],
-    "homepage": "http://github.com/rlacerda83/lumen-email-service",
+    "homepage": "http://github.com/rlacerda83/lumen-email-microservice",
     "type": "project",
     "license": "BSD",
     "authors": [
