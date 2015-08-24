@@ -15,6 +15,7 @@ before_script:
 script:
   - php artisan migrate --env=testing --no-interaction -vvv
   - vendor/bin/phpunit
+  - php artisan migrate:rollback --env=testing --no-interaction -vvv
 
 notifications:
     on_success: never

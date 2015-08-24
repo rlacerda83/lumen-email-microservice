@@ -24,20 +24,7 @@ class ControllerTest extends TestCase
 
     function testApitWithoutCredentials()
     {
-
         $this->call('GET', '/api/emails');
-        $this->assertResponseStatus(400);
-
-    }
-
-    function testApitWithBadCredentials()
-    {
-        $serverParams = array_replace(
-            $this->serverParams,
-            ['HTTP_API_TOKEN' => 'key:1122221eewew']
-        );
-
-        $this->call('GET', '/api/emails', [], [], [], $serverParams);
         $this->assertResponseStatus(401);
     }
 
