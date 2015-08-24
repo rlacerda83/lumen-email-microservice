@@ -11,24 +11,23 @@ class ControllerTest extends TestCase
 
     use DatabaseTransactions;
 
-
     public function setUp()
     {
         parent::setUp();
-        $this->key = 'key:' . env('APP_KEY');
+        $this->key = 'key:'.env('APP_KEY');
         $this->serverParams = [
             'HTTP_ACCEPT'      => 'application/vnd.app.v1+json',
-            'HTTP_API_TOKEN' => $this->key
+            'HTTP_API_TOKEN' => $this->key,
         ];
     }
 
-    function testApitWithoutCredentials()
+    public function testApitWithoutCredentials()
     {
         $this->call('GET', '/api/emails');
         $this->assertResponseStatus(401);
     }
 
-    function testGetEmails()
+    public function testGetEmails()
     {
         $response = $this->call('GET', '/api/emails', [], [], [], $this->serverParams);
         $json = json_decode($response->getContent());
@@ -40,10 +39,9 @@ class ControllerTest extends TestCase
          */
         $this->assertTrue(isset($json->meta));
         $this->assertTrue(isset($json->data));
-
     }
 
-    function testGetEmail()
+    public function testGetEmail()
     {
         $email = $this->generateEmail();
         $response = $this->call('GET', "/api/emails/{$email->id}", [], [], [], $this->serverParams);
@@ -59,13 +57,13 @@ class ControllerTest extends TestCase
         $this->assertEquals($json->data->id, $email->id);
     }
 
-    function testGetEmailNotFound()
+    public function testGetEmailNotFound()
     {
-        $this->call('GET', "/api/emails/0", [], [], [], $this->serverParams);
+        $this->call('GET', '/api/emails/0', [], [], [], $this->serverParams);
         $this->assertResponseStatus(422);
     }
 
-    function testDeleteEmail()
+    public function testDeleteEmail()
     {
         $email = $this->generateEmail();
         $this->call('DELETE', "/api/emails/{$email->id}", [], [], [], $this->serverParams);
@@ -74,9 +72,9 @@ class ControllerTest extends TestCase
         $this->notSeeInDatabase($email->getTable(), ['id' => $email->id]);
     }
 
-    function testDeleteEmailNotFound()
+    public function testDeleteEmailNotFound()
     {
-        $this->call('DELETE', "/api/emails/0", [], [], [], $this->serverParams);
+        $this->call('DELETE', '/api/emails/0', [], [], [], $this->serverParams);
         $this->assertResponseStatus(422);
     }
 
@@ -86,7 +84,7 @@ class ControllerTest extends TestCase
             'to' => 'r.lacerda83@gmail.com',
             'send_type' => 'queue',
             'subject' => 'Test',
-            'html' => '<html></html>'
+            'html' => '<html></html>',
         ];
 
         return Email::create($data);

@@ -5,7 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateJobsTable extends Migration
 {
-
     protected $tableName = 'jobs';
 
     /**

@@ -1,12 +1,10 @@
 <?php
 
-use App\Models\Email;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateEmailsTable extends Migration
 {
-
     protected $tableName = 'emails';
 
     /**
@@ -16,7 +14,6 @@ class CreateEmailsTable extends Migration
      */
     public function up()
     {
-
         if (Schema::hasTable($this->tableName)) {
             Schema::drop($this->tableName);
         }

@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\V1;
+<?php
+
+namespace App\Http\Controllers\V1;
 
 use Mail;
 use App\Models\Email;
@@ -12,7 +14,6 @@ use QueryParser\ParserRequest;
 
 class EmailController extends BaseController
 {
-
     use Helpers;
 
     /**
@@ -20,12 +21,11 @@ class EmailController extends BaseController
      */
     public function index(Request $request)
     {
-
         $emails = new Email();
         $queryParser = new ParserRequest($request, $emails);
         $queryBuilder = $queryParser->parser();
 
-        $paginator =  $queryBuilder->paginate(10);
+        $paginator = $queryBuilder->paginate(10);
         $paginator->appends(app('request')->except('page'));
 
         return $this->response->paginator($paginator, new EmailTransformer);
@@ -37,14 +37,12 @@ class EmailController extends BaseController
      */
     public function get($id)
     {
-
         $email = Email::find($id);
-        if(!$email) {
+        if (! $email) {
             throw new StoreResourceFailedException('Email not found');
         }
 
         return $this->response->item($email, new EmailTransformer);
-
     }
 
     /**
@@ -53,13 +51,13 @@ class EmailController extends BaseController
      */
     public function delete($id)
     {
-
         $email = Email::find($id);
-        if(!$email) {
+        if (! $email) {
             throw new DeleteResourceFailedException('Email not found');
         }
 
         $email->delete();
+
         return $this->response->noContent();
     }
 
@@ -86,7 +84,7 @@ class EmailController extends BaseController
                 }
                 $email->send_type = $method;
 
-                Mail::$method('email.blank', ['html' => $email->html], function($msg) use ($email) {
+                Mail::$method('email.blank', ['html' => $email->html], function ($msg) use ($email) {
 
                     if ($email->from) {
                         $msg->from([$email->from]);
@@ -117,7 +115,7 @@ class EmailController extends BaseController
 
                 if (isset($options['save']) && $options['save'] == true) {
                     $email->save();
-                } else if(env('MAIL_SAVE') == true) {
+                } elseif (env('MAIL_SAVE') == true) {
                     $email->save();
                 }
 
@@ -128,5 +126,3 @@ class EmailController extends BaseController
         }
     }
 }
-
-

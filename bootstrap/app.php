@@ -16,7 +16,7 @@ Dotenv::load(__DIR__.'/../');
 */
 
 $app = new Laravel\Lumen\Application(
-	realpath(__DIR__.'/../')
+    realpath(__DIR__.'/../')
 );
 
 $app->withFacades();
@@ -43,7 +43,6 @@ $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
     App\Console\Kernel::class
 );
-
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +78,7 @@ app('Dingo\Api\Transformer\Factory')->register('Email', 'EmailTransformer');
 */
 
 $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
-	require __DIR__.'/../app/Http/routes.php';
+    require __DIR__.'/../app/Http/routes.php';
 });
 
 return $app;
