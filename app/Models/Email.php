@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class Email extends Model
 {
-
     const SEND_TYPE_QUEUE = 'QUEUE';
     const SEND_TYPE_SYNC = 'NOW';
 
@@ -27,7 +26,7 @@ class Email extends Model
             'subject' => 'required|max:255',
             'replyTo' => 'email|max:150',
             'from' => 'email|max:150',
-            'html' => 'required'
+            'html' => 'required',
         ];
 
         $options = $request->all();
@@ -70,12 +69,10 @@ class Email extends Model
             if (isset($attributes['cc']) && is_array($attributes['cc'])) {
                 $this->cc = json_encode($attributes['cc']);
             }
-
         } catch (\Exception $e) {
             throw $e;
         }
 
         return $this;
-
     }
 }
