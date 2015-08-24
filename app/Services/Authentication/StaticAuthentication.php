@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Authentication;
+namespace App\Services\Authentication;
 
 use Illuminate\Http\Request;
 use Dingo\Api\Routing\Route;

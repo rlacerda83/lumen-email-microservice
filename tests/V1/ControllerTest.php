@@ -5,9 +5,11 @@ use App\Models\Email;
 
 class ControllerTest extends TestCase
 {
-    protected $key;
+    private $key;
 
-    protected $serverParams;
+    private $serverParams;
+
+    private $mock;
 
     use DatabaseTransactions;
 
@@ -19,6 +21,13 @@ class ControllerTest extends TestCase
             'HTTP_ACCEPT'      => 'application/vnd.app.v1+json',
             'HTTP_API_TOKEN' => $this->key,
         ];
+    }
+
+    public function tearDown()
+    {
+        parent::tearDown();
+
+        Mockery::close();
     }
 
     public function testApitWithoutCredentials()
@@ -78,6 +87,58 @@ class ControllerTest extends TestCase
         $this->assertResponseStatus(422);
     }
 
+    public function testSendEmailWithBadParams()
+    {
+        $this->call('POST', '/api/emails/send', [], [], [], $this->serverParams);
+        $this->assertResponseStatus(422);
+    }
+
+    /**
+     * @param $queryParams
+     * @param $expectedResult
+     *
+     * @dataProvider providerTestSendEmail
+     */
+    public function testSendEmail($queryParams, $expectedResult)
+    {
+        if ($queryParams['save'] == true && $expectedResult == 201) {
+            $totalBefore = Email::count();
+        }
+
+        Mail::pretend(true);
+
+        $this->call('POST', '/api/emails/send', $queryParams, [], [], $this->serverParams);
+        $this->assertResponseStatus($expectedResult);
+
+        if ($queryParams['save'] == true && $expectedResult == 201) {
+            $totalAfter = Email::count();
+            $this->assertEquals($totalBefore, $totalAfter-1);
+        }
+    }
+
+    public function providerTestSendEmail()
+    {
+        return [
+            [[
+                'to' => 'r.lacerda83@gmail.com',
+                'subject' => 'Test',
+                'html' => '<html><b>OK</b></html>',
+                'save' => false
+            ], 201],
+            [[
+                'to' => 'r.lacerda83@gmail.com',
+                'subject' => 'Test',
+                'html' => '<html><b>OK</b></html>',
+                'save' => true
+            ], 201],
+            [[
+                'to' => 'r.lacerda83@gmail.com',
+                'subject' => 'Test',
+                'save' => false
+            ], 422],
+        ];
+    }
+
     protected function generateEmail()
     {
         $data = [
@@ -89,4 +150,6 @@ class ControllerTest extends TestCase
 
         return Email::create($data);
     }
+
+
 }

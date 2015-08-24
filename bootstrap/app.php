@@ -61,7 +61,7 @@ $app->singleton(
 $app->register(Dingo\Api\Provider\LumenServiceProvider::class);
 
 app('Dingo\Api\Auth\Auth')->extend('static', function ($app) {
-    return new App\Authentication\StaticAuthentication($app['auth']);
+    return new App\Services\Authentication\StaticAuthentication($app['auth']);
 });
 
 app('Dingo\Api\Transformer\Factory')->register('Email', 'EmailTransformer');

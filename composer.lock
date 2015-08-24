@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "154373f1c26e582b1b5a3ee1e3780a6d",
+    "hash": "0f3697ab0944c6dda2ad6472c8e272ed",
     "packages": [
         {
             "name": "danielstjules/stringy",
@@ -68,12 +68,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dingo/api.git",
-                "reference": "f08139238b528e5421ba38dbd8a1021b12a5d410"
+                "reference": "1cd3bf97394366dff5c5b478f902a960fad77e12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dingo/api/zipball/f08139238b528e5421ba38dbd8a1021b12a5d410",
-                "reference": "f08139238b528e5421ba38dbd8a1021b12a5d410",
+                "url": "https://api.github.com/repos/dingo/api/zipball/1cd3bf97394366dff5c5b478f902a960fad77e12",
+                "reference": "1cd3bf97394366dff5c5b478f902a960fad77e12",
                 "shasum": ""
             },
             "require": {
@@ -135,7 +135,7 @@
                 "laravel",
                 "restful"
             ],
-            "time": "2015-08-22 03:15:16"
+            "time": "2015-08-23 09:50:41"
         },
         {
             "name": "dingo/blueprint",
@@ -2140,12 +2140,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rlacerda83/lumen-api-query-parser.git",
-                "reference": "23bbe43390ab6e3d19d660f8b3ca2d39de547027"
+                "reference": "7be0bd8798ada49e5e4b34df63ae4df57cf9d4e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rlacerda83/lumen-api-query-parser/zipball/23bbe43390ab6e3d19d660f8b3ca2d39de547027",
-                "reference": "23bbe43390ab6e3d19d660f8b3ca2d39de547027",
+                "url": "https://api.github.com/repos/rlacerda83/lumen-api-query-parser/zipball/7be0bd8798ada49e5e4b34df63ae4df57cf9d4e1",
+                "reference": "7be0bd8798ada49e5e4b34df63ae4df57cf9d4e1",
                 "shasum": ""
             },
             "require": {
@@ -2179,7 +2179,7 @@
                 "parser",
                 "query"
             ],
-            "time": "2015-08-23 00:15:05"
+            "time": "2015-08-23 00:55:48"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3102,6 +3102,116 @@
             "time": "2015-05-29 06:29:14"
         },
         {
+            "name": "hamcrest/hamcrest-php",
+            "version": "v1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hamcrest/hamcrest-php.git",
+                "reference": "b37020aa976fa52d3de9aa904aa2522dc518f79c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hamcrest/hamcrest-php/zipball/b37020aa976fa52d3de9aa904aa2522dc518f79c",
+                "reference": "b37020aa976fa52d3de9aa904aa2522dc518f79c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "replace": {
+                "cordoval/hamcrest-php": "*",
+                "davedevelopment/hamcrest-php": "*",
+                "kodova/hamcrest-php": "*"
+            },
+            "require-dev": {
+                "phpunit/php-file-iterator": "1.3.3",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "hamcrest"
+                ],
+                "files": [
+                    "hamcrest/Hamcrest.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "description": "This is the PHP port of Hamcrest Matchers",
+            "keywords": [
+                "test"
+            ],
+            "time": "2015-05-11 14:41:42"
+        },
+        {
+            "name": "mockery/mockery",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/padraic/mockery.git",
+                "reference": "e585573c91b0c821e511afd14666b4503ef7255b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/e585573c91b0c821e511afd14666b4503ef7255b",
+                "reference": "e585573c91b0c821e511afd14666b4503ef7255b",
+                "shasum": ""
+            },
+            "require": {
+                "hamcrest/hamcrest-php": "~1.1",
+                "lib-pcre": ">=7.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Mockery": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Pádraic Brady",
+                    "email": "padraic.brady@gmail.com",
+                    "homepage": "http://blog.astrumfutura.com"
+                },
+                {
+                    "name": "Dave Marshall",
+                    "email": "dave.marshall@atstsolutions.co.uk",
+                    "homepage": "http://davedevelopment.co.uk"
+                }
+            ],
+            "description": "Mockery is a simple yet flexible PHP mock object framework for use in unit testing with PHPUnit, PHPSpec or any other testing framework. Its core goal is to offer a test double framework with a succinct API capable of clearly defining all possible object operations and interactions using a human readable Domain Specific Language (DSL). Designed as a drop in alternative to PHPUnit's phpunit-mock-objects library, Mockery is easy to integrate with PHPUnit and can operate alongside phpunit-mock-objects without the World ending.",
+            "homepage": "http://github.com/padraic/mockery",
+            "keywords": [
+                "BDD",
+                "TDD",
+                "library",
+                "mock",
+                "mock objects",
+                "mockery",
+                "stub",
+                "test",
+                "test double",
+                "testing"
+            ],
+            "time": "2015-07-31 13:51:58"
+        },
+        {
             "name": "phpspec/prophecy",
             "version": "v1.5.0",
             "source": {
@@ -3954,7 +4064,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "dingo/api": 20,
-        "rlacerda83/query-parser": 20
+        "rlacerda83/query-parser": 20,
+        "mockery/mockery": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
