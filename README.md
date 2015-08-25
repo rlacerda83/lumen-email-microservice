@@ -5,5 +5,24 @@
 [![StyleCI](https://styleci.io/repos/40798726/shield)](https://styleci.io/repos/40798726)
 
 # Microservice for send email
-Simple restfull service for sending emails.
+Microservice developed in Lumen for sending emails in real time or by queue.
+
+## Current Features  
+- Send email in real time
+- Send email asynchronously 
+- Save email in database
+- Displays all emails saved in database
+- Delete emails saved in database
+
+## Upcoming Features
+- Send emails asynchronously with delay
+
+## Documentation
+Please visit [Wiki documentation](https://github.com/rlacerda83/lumen-email-microservice/wiki) for more information.
+
+## Contributing
+Contributions are welcome and will be fully credited. Please see [CONTRIBUTING](contributing.md) for details.
+
+### Security
+If you discover any security related issues, please email r.lacerda83@gmail.com instead of using the issue tracker.
 
