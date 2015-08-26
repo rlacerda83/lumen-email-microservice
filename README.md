@@ -16,6 +16,7 @@ Microservice developed in Lumen for sending emails in real time or by queue.
 
 ## Upcoming Features
 - Send emails asynchronously with delay
+- Send multiples emails by request
 
 ## Documentation
 Please visit [Wiki documentation](https://github.com/rlacerda83/lumen-email-microservice/wiki) for more information.

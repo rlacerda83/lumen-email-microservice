@@ -13,7 +13,7 @@ class Email extends Model
 
     //protected $casts = ['cc' => 'array', 'bcc' => 'array'];
 
-    protected $fillable = ['to', 'send_type', 'subject', 'html', 'origin', 'from'];
+    protected $fillable = ['to', 'send_type', 'subject', 'html', 'origin', 'from', 'reply_to'];
 
     /**
      * @param Request $request
@@ -24,7 +24,7 @@ class Email extends Model
         $rules = [
             'to' => 'required|email|max:150',
             'subject' => 'required|max:255',
-            'replyTo' => 'email|max:150',
+            'reply_to' => 'email|max:150',
             'from' => 'email|max:150',
             'html' => 'required',
         ];

@@ -22,6 +22,7 @@ class CreateEmailsTable extends Migration
             $table->bigIncrements('id');
             $table->string('to');
             $table->string('from')->nullable();
+            $table->string('reply_to')->nullable();
             $table->string('origin')->nullable();
             $table->string('send_type');
             $table->json('cc')->nullable();
