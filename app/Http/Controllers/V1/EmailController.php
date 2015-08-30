@@ -11,23 +11,31 @@ use Dingo\Api\Exception\StoreResourceFailedException;
 use Dingo\Api\Exception\DeleteResourceFailedException;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use QueryParser\ParserRequest;
+use App\Repositories\Eloquent\EmailRepository ;
 
 class EmailController extends BaseController
 {
     use Helpers;
 
     /**
+     * @var $email
+     */
+    private $repository;
+
+    /**
+     * @param EmailRepository $repository
+     */
+    public function __construct(EmailRepository $repository) 
+    {
+        $this->repository = $repository;
+    }
+
+    /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(Request $request)
     {
-        $emails = new Email();
-        $queryParser = new ParserRequest($request, $emails);
-        $queryBuilder = $queryParser->parser();
-
-        $paginator = $queryBuilder->paginate(10);
-        $paginator->appends(app('request')->except('page'));
-
+        $paginator = $this->repository->findAllPaginate($request, 5);
         return $this->response->paginator($paginator, new EmailTransformer);
     }
 
@@ -37,7 +45,7 @@ class EmailController extends BaseController
      */
     public function get($id)
     {
-        $email = Email::find($id);
+        $email = $this->repository->find($id);
         if (! $email) {
             throw new StoreResourceFailedException('Email not found');
         }
@@ -51,7 +59,7 @@ class EmailController extends BaseController
      */
     public function delete($id)
     {
-        $email = Email::find($id);
+        $email = $this->repository->find($id);
         if (! $email) {
             throw new DeleteResourceFailedException('Email not found');
         }
@@ -67,15 +75,13 @@ class EmailController extends BaseController
      */
     public function send(Request $request)
     {
-        $email = new Email();
-
-        $handleRequest = $email->validateRequest($request);
+        $handleRequest = $this->repository->validateRequest($request);
 
         if (is_array($handleRequest)) {
             throw new StoreResourceFailedException('Invalid request', $handleRequest);
         } else {
             try {
-                $email->customFill($request->all());
+                $email = $this->repository->customFill($request->all());
 
                 if ($email->send_type) {
                     $method = strtoupper($email->send_type) ==  Email::SEND_TYPE_SYNC ? 'send' : 'queue';

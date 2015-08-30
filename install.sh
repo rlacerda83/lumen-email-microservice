@@ -28,7 +28,7 @@ else
 
 	CONFIG=$(cat <<EOF
 [program:service-email-queue-listen]
-command=php ${DIR}/artisan queue:listen --sleep=3 --tries=3 --daemon
+command=php ${DIR}/artisan queue:listen --sleep=3 --tries=3
 user=$USER
 process_name=%(program_name)s_%(process_num)d
 directory=${DIR}
