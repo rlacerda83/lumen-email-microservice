@@ -18,28 +18,4 @@ class Email extends Model
 
         Self::observe(new BaseObserver);
     }
-
-    /**
-     * @param array $attributes
-     * @return Email
-     * @throws \Exception
-     */
-    public function customFill(array $attributes)
-    {
-        try {
-            $this->fill($attributes);
-
-            if (isset($attributes['bcc']) && is_array($attributes['bcc'])) {
-                $this->bcc = json_encode($attributes['bcc']);
-            }
-
-            if (isset($attributes['cc']) && is_array($attributes['cc'])) {
-                $this->cc = json_encode($attributes['cc']);
-            }
-        } catch (\Exception $e) {
-            throw $e;
-        }
-
-        return $this;
-    }
 }
