@@ -16,7 +16,7 @@ class Email extends Model
     {
         parent::boot();
 
-        Email::observe(new BaseObserver);
+        Self::observe(new BaseObserver);
     }
 
 

@@ -10,15 +10,14 @@ use Dingo\Api\Routing\Helpers;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Dingo\Api\Exception\DeleteResourceFailedException;
 use Laravel\Lumen\Routing\Controller as BaseController;
-use QueryParser\ParserRequest;
-use App\Repositories\Eloquent\EmailRepository ;
+use App\Repositories\Eloquent\EmailRepository;
 
 class EmailController extends BaseController
 {
     use Helpers;
 
     /**
-     * @var $email
+     * @var EmailRepository
      */
     private $repository;
 

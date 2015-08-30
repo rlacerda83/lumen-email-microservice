@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use QueryParser\ParserRequest;
 use Validator;
 
-class EmailRepository extends AbstractRepository {
+class EmailRepository extends AbstractRepository
+{
 
     protected $enableCaching = true;
 
@@ -21,7 +22,7 @@ class EmailRepository extends AbstractRepository {
     ];
 
     /**
-     * Specify Model class name
+     * Specify Model class name.
      *
      * @return mixed
      */
@@ -88,7 +89,7 @@ class EmailRepository extends AbstractRepository {
 
     public function findAllPaginate(Request $request, $itemsPage = 30)
     {
-        $key = md5($itemsPage . $request->getRequestUri());
+        $key = md5($itemsPage.$request->getRequestUri());
         $queryParser = new ParserRequest($request, $this->getModel());
         $queryBuilder = $queryParser->parser();
 
