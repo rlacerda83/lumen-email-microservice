@@ -11,6 +11,7 @@ use Dingo\Api\Exception\StoreResourceFailedException;
 use Dingo\Api\Exception\DeleteResourceFailedException;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Repositories\Eloquent\EmailRepository;
+use QueryParser\QueryParserException;
 
 class EmailController extends BaseController
 {
@@ -34,9 +35,13 @@ class EmailController extends BaseController
      */
     public function index(Request $request)
     {
-        $paginator = $this->repository->findAllPaginate($request, 5);
+        try {
+            $paginator = $this->repository->findAllPaginate($request, 5);
 
-        return $this->response->paginator($paginator, new EmailTransformer);
+            return $this->response->paginator($paginator, new EmailTransformer);
+        } catch (QueryParserException $e) {
+            throw new StoreResourceFailedException($e->getMessage(), $e->getFields());
+        }
     }
 
     /**
