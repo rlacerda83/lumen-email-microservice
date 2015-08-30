@@ -24,7 +24,7 @@ class EmailController extends BaseController
     /**
      * @param EmailRepository $repository
      */
-    public function __construct(EmailRepository $repository) 
+    public function __construct(EmailRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -35,6 +35,7 @@ class EmailController extends BaseController
     public function index(Request $request)
     {
         $paginator = $this->repository->findAllPaginate($request, 5);
+
         return $this->response->paginator($paginator, new EmailTransformer);
     }
 

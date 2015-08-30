@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Eloquent;
 
-
 use Elocache\Repositories\Eloquent\AbstractRepository;
 use Illuminate\Http\Request;
 use QueryParser\ParserRequest;
@@ -10,7 +9,6 @@ use Validator;
 
 class EmailRepository extends AbstractRepository
 {
-
     protected $enableCaching = true;
 
     public static $rules = [
@@ -60,7 +58,6 @@ class EmailRepository extends AbstractRepository
         }
 
         return true;
-
     }
 
     /**
@@ -95,6 +92,4 @@ class EmailRepository extends AbstractRepository
 
         return $this->cacheQueryBuilder($key, $queryBuilder, 'paginate', $itemsPage);
     }
-
-
 }
