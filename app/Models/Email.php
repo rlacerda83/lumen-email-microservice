@@ -19,7 +19,6 @@ class Email extends Model
         Self::observe(new BaseObserver);
     }
 
-
     /**
      * @param array $attributes
      * @return Email
