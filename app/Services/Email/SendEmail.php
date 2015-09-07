@@ -2,22 +2,24 @@
 
 namespace App\Services\Email;
 
+use App\Jobs\JobEmail;
 use App\Models\Email;
+use Laravel\Lumen\Routing\DispatchesJobs;
 use Mail;
 
 class SendEmail
 {
+    use DispatchesJobs;
     /**
      * @param Email $email
-     * @param string $method
      * @param string $template
      * @return bool
      * @throws \Exception
      */
-    public static function send(Email $email, $method = 'queue', $template = 'email.blank')
+    public static function send(Email $email, $template = 'email.blank')
     {
         try {
-            Mail::$method($template, ['html' => $email->html], function ($msg) use ($email) {
+            Mail::send($template, ['html' => $email->html], function ($msg) use ($email) {
 
                 if ($email->from) {
                     $msg->from([$email->from]);
@@ -50,5 +52,14 @@ class SendEmail
         }
 
         return true;
+    }
+
+    public function handleEmailType(Email $email, $method = 'queue')
+    {
+        if (strtoupper($method) == Email::SEND_TYPE_QUEUE) {
+           $this->dispatch(new JobEmail($email));
+        } else {
+            self::send($email);
+        }
     }
 }

@@ -36,7 +36,7 @@ class EmailController extends BaseController
     public function index(Request $request)
     {
         try {
-            $paginator = $this->repository->findAllPaginate($request, 5);
+            $paginator = $this->repository->findAllPaginate($request);
 
             return $this->response->paginator($paginator, new EmailTransformer);
         } catch (QueryParserException $e) {
@@ -86,7 +86,8 @@ class EmailController extends BaseController
             throw new StoreResourceFailedException('Invalid request', $handleRequest);
         } else {
             try {
-                $email = $this->repository->customFill($request->all());
+                $options = $request->all();
+                $email = $this->repository->customFill($options);
 
                 if ($email->send_type) {
                     $method = strtoupper($email->send_type) ==  Email::SEND_TYPE_SYNC ? 'send' : 'queue';
@@ -96,13 +97,14 @@ class EmailController extends BaseController
 
                 $email->send_type = $method;
 
-                SendEmail::send($email, $method);
-
-                if (isset($options['save']) && $options['save'] == true) {
+                if (isset($options['save']) && $options['save'] === true) {
                     $email->save();
-                } elseif (env('MAIL_SAVE') == true) {
+                } elseif (env('MAIL_SAVE') === true || strtoupper($method) == Email::SEND_TYPE_QUEUE) {
                     $email->save();
                 }
+
+                $serviceEmail = new SendEmail();
+                $serviceEmail->handleEmailType($email, $method);
 
                 return $this->response->created();
             } catch (\Exception $e) {
