@@ -10,6 +10,7 @@ use Mail;
 class SendEmail
 {
     use DispatchesJobs;
+
     /**
      * @param Email $email
      * @param string $template
@@ -57,7 +58,7 @@ class SendEmail
     public function handleEmailType(Email $email, $method = 'queue')
     {
         if (strtoupper($method) == Email::SEND_TYPE_QUEUE) {
-           $this->dispatch(new JobEmail($email));
+            $this->dispatch(new JobEmail($email));
         } else {
             self::send($email);
         }

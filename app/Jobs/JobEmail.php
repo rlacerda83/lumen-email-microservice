@@ -7,7 +7,6 @@ use App\Services\Email\SendEmail;
 
 class JobEmail extends Job
 {
-
     protected $email;
 
     /**

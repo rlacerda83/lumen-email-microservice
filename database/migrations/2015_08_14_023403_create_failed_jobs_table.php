@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreateFailedJobsTable extends Migration
 {
     protected $tableName = 'failed_jobs';
+
     /**
      * Run the migrations.
      *
