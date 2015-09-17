@@ -5,12 +5,19 @@ php:
 
 sudo: false
 
+# Create a Travis memcached enabled environment for the test suite to run in and
+# ensure that we test against localhost on Travis-CI.
+services: memcache
+env: MEMCACHED__HOST=localhost
+
 before_script:
   - cp .env.example .env
   - mysql -e 'create database emailservice;'
   - composer self-update
   - composer install --dev --prefer-source --no-interaction
   - php artisan migrate:install --env=testing --no-interaction -vvv
+  - memcached -p 11212 -d
+  - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script:
   - php artisan migrate --env=testing --no-interaction -vvv
